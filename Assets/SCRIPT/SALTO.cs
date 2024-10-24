@@ -1,25 +1,18 @@
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour
+public class JumpController : MonoBehaviour
 {
-    public float jumpForce = 7f;
-    public bool isGrounded;      
-    public Transform groundCheck; 
-    public float groundDistance = 0.4f; 
-    public LayerMask groundMask; 
-
+    public float jumpForce = 5f; // Fuerza del salto
     private Rigidbody rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); // Obtiene el Rigidbody del personaje
     }
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) // Si se presiona la barra espaciadora
         {
             Jump();
         }
@@ -27,7 +20,6 @@ public class PlayerJump : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Aplica una fuerza hacia arriba
     }
 }
