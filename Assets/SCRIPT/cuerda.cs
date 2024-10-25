@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RopePhysicsMovement : MonoBehaviour
+public class CuerdaMovimiento : MonoBehaviour
 {
-    public float torque = 10f;  // Fuerza del torque
-    private Rigidbody2D rb;
+    // Ajustes para el movimiento de la cuerda
+    public float velocidadOscilacion = 2f; // Velocidad del balanceo
+    public float amplitudOscilacion = 30f; // Amplitud del balanceo en grados
 
-    void Start()
-    {
-        // Obtener el componente Rigidbody2D de la cuerda
-        rb = GetComponent<Rigidbody2D>();
-    }
+    private float tiempo;
 
     void Update()
     {
-        // Aplicar torque a la cuerda para que gire
-        rb.AddTorque(torque * Time.deltaTime);
+        tiempo += Time.deltaTime * velocidadOscilacion;
+        float angulo = Mathf.Sin(tiempo) * amplitudOscilacion;
+
+        // Rotar en el eje Y para un movimiento horizontal
+        transform.rotation = Quaternion.Euler(angulo, 0f, 0f);
     }
 }
