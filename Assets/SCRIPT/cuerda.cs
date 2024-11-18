@@ -21,15 +21,5 @@ public class CuerdaMovimiento : MonoBehaviour
         transform.rotation = Quaternion.Euler(angulo, 0f, 0f);
     }
 
-    // Detectar colisiones con otros objetos
-    void OnTriggerEnter(Collider other)
-    {
-        // Verificar si el objeto tiene un componente de vida
-        Vida personajeVida = other.GetComponent<Vida>();
-        if (personajeVida != null)
-        {
-            // Aplicar daño
-            personajeVida.RecibirDanio(damageAmount);
-        }
-    }
+
 }
