@@ -10,6 +10,9 @@ public class AutoJump : MonoBehaviour
     private float currentJumpInterval;
     private bool isGrounded;                  // Verificación de si está en el suelo
 
+    public AudioSource audioSource;           // Referencia al componente AudioSource
+    public AudioClip jumpSound;               // Sonido del salto
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +36,12 @@ public class AutoJump : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false; // Asumimos que el objeto ya no está en el suelo
+
+            // Reproducir el sonido de salto
+            if (audioSource != null && jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
     }
 
