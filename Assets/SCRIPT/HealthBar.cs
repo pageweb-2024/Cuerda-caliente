@@ -1,34 +1,30 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    public Slider healthSlider; // Referencia al Slider (barra de vida)
-    public int maxHealth = 100; // Salud máxima
-    public int currentHealth; // Salud actual
+    public int maxHealth = 100;
+    private int currentHealth;
 
-    // Método para inicializar la salud
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthBar();
     }
 
-    // Método para recibir daño
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
-        UpdateHealthBar();
-    }
+        currentHealth -= amount;
+        Debug.Log($"Vida restante: {currentHealth}");
 
-    // Método para actualizar la barra de salud
-    void UpdateHealthBar()
-    {
-        if (healthSlider != null)
+        if (currentHealth <= 0)
         {
-            healthSlider.value = (float)currentHealth / maxHealth;
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Debug.Log("El jugador ha muerto.");
+        // Aquí puedes agregar lógica para reiniciar el nivel, mostrar un mensaje, etc.
     }
 }
 

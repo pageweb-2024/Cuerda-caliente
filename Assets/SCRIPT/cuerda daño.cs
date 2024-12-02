@@ -1,37 +1,21 @@
 using UnityEngine;
 
-public class CuerdaDeDaño : MonoBehaviour
+public class RopeDamage : MonoBehaviour
 {
-    public int damageAmount = 10; // Daño que hace la cuerda
+    public int damage = 10; // Daño que la cuerda inflige
 
-    // Este método se llama cuando otro objeto con un Collider entra en contacto con la cuerda
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // Verifica si el objeto con el que colisiona tiene la etiqueta "Jugador" o "Enemigo"
-        if (collision.gameObject.CompareTag("Jugador") || collision.gameObject.CompareTag("Enemigo"))
+        if (other.CompareTag("Player")) // Verifica que el objeto sea el jugador
         {
-            // Obtén el componente de la salud del personaje
-            HealthBar healthBar = collision.gameObject.GetComponent<HealthBar>();
-            if (healthBar != null)
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                // Aplica el daño a la salud
-                healthBar.TakeDamage(damageAmount);
+                playerHealth.TakeDamage(damage);
             }
         }
     }
-
-    // Si estás usando triggers en lugar de colisiones físicas, usa OnTriggerEnter en su lugar:
-     private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Jugador") || other.gameObject.CompareTag("Enemigo"))
-        {
-            HealthBar healthBar = other.gameObject.GetComponent<HealthBar>();
-            if (healthBar != null)
-            {
-                healthBar.TakeDamage(damageAmount);
-            }
-        }
-     }
 }
+
 
 
